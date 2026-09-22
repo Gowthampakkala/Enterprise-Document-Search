@@ -8,9 +8,6 @@ import numpy as np
 
 app = FastAPI()
 
-# -------------------
-# Load PDF ONCE
-# -------------------
 
 reader = PdfReader("Enterprise-Document-Search/sample.pdf")
 
@@ -26,9 +23,6 @@ chunks = []
 for i in range(0, len(text), chunk_size):
     chunks.append(text[i:i+chunk_size])
 
-# -------------------
-# Embeddings ONCE
-# -------------------
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -46,17 +40,11 @@ print("FAISS Ready")
 print("Chunks:", len(chunks))
 
 
-# -------------------
-# Request Model
-# -------------------
 
 class Question(BaseModel):
     question: str
 
 
-# -------------------
-# Routes
-# -------------------
 
 @app.get("/")
 def home():
